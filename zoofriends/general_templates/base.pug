@@ -1,0 +1,78 @@
+{% load static %}
+
+doctype html
+html(lang='ru')
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        link(rel="stylesheet" href='{% static "general_static/css/style.css" %}')
+        link(rel='icon' type='image/png' href='{% static "general_static/images/favicon.png" %}')
+        script
+            include yamc.js
+        noscript
+            div
+                img(src="https://mc.yandex.ru/watch/95177127" style="position:absolute; left:-9999px;" alt="")
+        title Зоодруг
+    body(class='body')
+        .wrapper
+            header
+                .container
+                    nav(class='nav' id='nav')
+                        a(class='nav__mobile-logo' href='/')
+                            img(src='{% static "general_static/images/logo.png" %}'))
+                        ul.nav__desktop
+                            li
+                                a(class='nav__logo' href='/')
+                                    img(src='{% static "general_static/images/logo.png" %}'))
+                            if user.is_authenticated
+                                li
+                                    a(class='link' href='/userprofile/') Моя анкета
+                                li
+                                    a(class='link' href='/animalprofile/new/') Добавить животного
+                            else
+                                li
+                                    a(class='link' href='/userprofile/register-user/') Регистрация
+                                li
+                                    a(class='link' href='/userprofile/login/') Вход в аккаунт
+                            li
+                                a(class='link' href='/imhome/') Я дома
+                            li
+                                a(class='link' href='/animalprofiles/') ЗооДрузья
+                        ul(class='nav__mobile' id='nav-mobile')
+                            if user.is_authenticated
+                                li
+                                    a(class='link' href='/userprofile/') Моя анкета
+                                li
+                                    a(class='link' href='/animalprofile/new/') Добавить животного
+                            else
+                                li
+                                    a(class='link' href='/userprofile/register-user/') Регистрация
+                                li
+                                    a(class='link' href='/userprofile/login/') Вход в аккаунт
+                            li
+                                a(class='link' href='/imhome/') Я дома
+                            li
+                                a(class='link' href='/animalprofiles/') ЗооДрузья
+                        button(class='burger nav__burger' id='burger')
+                            span.burger__line
+                            span.burger__line
+                            span.burger__line
+            main
+                {% if messages %}
+                ul.messages
+                    {% for message in messages %}
+                    li(class='message {{ message.tags }}')
+                        {{ message }}
+                    {% endfor %}
+                {% endif %}
+                block main
+            footer.footer
+                .container
+                    .footer__body
+                        span.footer__copyright ©2023 Зоодруг
+
+                        ul.footer__links
+                            li
+                                a(href="https://vk.com/krispo21")
+                                    img(src='{% static "general_static/images/vk.png" %}'))
+    script(src='{% static "general_static/js/index.js" %}') 

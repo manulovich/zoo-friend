@@ -1,0 +1,13 @@
+extends base.pug
+include mx_card.pug
+
+block main
+	section(class='page imhome')
+		.container
+			.page__body
+				h2.page__title Уже нашли дом
+
+				div(class='cols-auto-fit')
+					each animal in animals
+						li
+							+cardZoo(animal.photo.url, animal.name, user.is_authenticated, user_account.id, animal.id, animal.isOwnerFound, animal.isFavorite)

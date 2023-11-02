@@ -1,0 +1,31 @@
+extends base.pug
+
+block main
+    section(class='page loginuser')
+        .container
+            .page__body
+                h2.page__title Вход в аккаунт
+
+                form(class='form' method='post')
+                    {% csrf_token %}
+                    .form__error {{ form.non_field_errors }}
+                    .form__row
+                        .text-field
+                            label(for='{{ form.username.id_for_label }}') Логин
+                            {{ form.username }}
+                            span.error {{ form.username.errors }}
+                            
+                    .form__row                                
+                        .text-field
+                            label(for='{{ form.email.id_for_label }}') {{ form.email.label }}
+                            {{ form.email }}
+                            span.error {{ form.email.errors }}
+                    .form__row
+                        .text-field
+                            label(for='{{ form.password.id_for_label }}') {{ form.password.label }}
+                            {{ form.password }}
+                            span.error {{ form.password.errors }}
+                    .form__row
+                        a.link(href='/userprofile/password-reset/') Забыли пароль? 
+                    .form__footer
+                        button(class='btn' type='submit') Вход

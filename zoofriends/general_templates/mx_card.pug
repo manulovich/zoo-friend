@@ -1,0 +1,28 @@
+mixin cardZoo(imgUrl, title, is_auth, user_id, animal_id, isOwnerFound, isFavorite)
+	- var className = 'card-zoo';
+
+	if is_auth
+		if isOwnerFound == isFavorite
+			if isOwnerFound
+				className = 'card-zoo card-zoo--is-owner-found card-zoo--is-favorite'
+		if isOwnerFound
+			if isFavorite == false
+				className = 'card-zoo card-zoo--is-owner-found'
+		if isFavorite
+			if isOwnerFound == false
+				className = 'card-zoo card-zoo--is-favorite'
+	if is_auth
+		div(class=className data-userid=user_id data-animalid=animal_id)
+			div(class='card-zoo__image')
+				img(src='#{imgUrl}')
+				button(class='card-zoo__mark-as-favorite')
+					svg(width="58" height="52" viewBox="0 0 58 52" xmlns="http://www.w3.org/2000/svg")
+						path(d="M25.5151 49.9424L25.4611 49.906L25.4028 49.877C22.1586 48.2592 16.0128 44.3542 10.693 38.946C5.35629 33.5208 1 26.7367 1 19.35C1 9.23332 9.22812 1 19.3352 1C22.5803 1 25.7155 1.8476 28.498 3.46262L29 3.75397L29.502 3.46262C32.2844 1.84768 35.4252 1 38.6648 1C48.7719 1 57 9.23332 57 19.35C57 26.7368 52.6437 33.5223 47.307 38.9482C41.9871 44.3571 35.8414 48.2619 32.5978 49.8767L32.5392 49.9058L32.4849 49.9424C31.4413 50.6452 30.2788 51 29 51C27.7212 51 26.5587 50.6452 25.5151 49.9424Z" stroke="white" stroke-width="2")
+			h3.card-zoo__title=title
+			a(class='link card-zoo__details' href='/animalprofile/#{animal_id}/') Подробнее о животном ->
+	if is_auth == false
+		div(class=className)
+			div(class='card-zoo__image')
+				img(src='#{imgUrl}')
+			h3.card-zoo__title=title
+			a(class='link card-zoo__details' href='/animalprofile/#{animal_id}/') Подробнее о животном ->

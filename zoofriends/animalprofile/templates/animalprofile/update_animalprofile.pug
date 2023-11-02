@@ -1,0 +1,64 @@
+extends base.pug
+
+block main
+    section(class='page newzooprofile')
+        .container
+            .page__body
+                h2.page__title Новая анкета животного
+
+
+                form(class='newzooprofile__form form' enctype='multipart/form-data' method='post')
+                    {% csrf_token %}
+
+                    div(class='cols-auto-fit')
+                        div
+                            .form__row
+                                .text-field
+                                    label(for='{{form.name.id_for_label}}') {{form.name.label}}
+                                    {{form.name}}
+                            .form__row
+                                .cols-auto-fit
+                                    .select-field
+                                        label(for='{{form.kind.id_for_label}}') {{form.kind.label}}
+                                        {{form.kind}}
+                                    .select-field
+                                        label(for='{{form.color.id_for_label}}') {{form.color.label}}
+                                        {{form.color}}
+                                    .number-field
+                                        label(for='{{form.age.id_for_label}}') {{form.age.label}}
+                                        {{form.age}}
+                                    .select-field
+                                        label(for='{{form.gender.id_for_label}}') {{form.gender.label}}
+                                        {{form.gender}}  
+                                    .select-field
+                                        label(for='{{form.temperament.id_for_label}}') {{form.temperament.label}}
+                                        {{form.temperament}} 
+                                    .number-field
+                                        label(for='{{form.heightAtWithers.id_for_label}}') {{form.heightAtWithers.label}}
+                                        {{form.heightAtWithers}}
+                                    .select-field
+                                        label(for='{{form.attitudeTowardsOtherAnimals.id_for_label}}') {{form.attitudeTowardsOtherAnimals.label}}
+                                        {{form.attitudeTowardsOtherAnimals}}
+                                    .select-field
+                                        label(for='{{form.specialQualitie.id_for_label}}') {{form.specialQualitie.label}}
+                                        {{form.specialQualitie}}
+                            .form__row
+                                .select-field
+                                    label(for='{{form.wool.id_for_label}}') {{form.wool.label}}
+                                    {{form.wool}}
+                            .form__row
+                                .textarea-field
+                                    label(for='{{form.description.id_for_label}}') {{form.description.label}}
+                                    {{form.description}}
+                        div
+                            .form__row
+                                .form__image-preview
+                                    img(id='zoo-image-preview-update' src='{{ animal.photo.url }}')
+                            .form__row
+                                div(class='form__select-photo select-photo' data-for='zoo-image-preview-update')
+                                    label(for='{{form.photo.id_for_label}}')
+                                        input(name='photo' type='file' accept='image/*')
+                                        button(class='btn' type='button') Фото
+                                        span.select-photo__url {{animal.photo.url}}
+                    .form__footer
+                        button(class='btn' type='submit') Обновить

@@ -1,0 +1,93 @@
+extends base.pug
+
+block main
+    section(class='page zooprofile')
+        .container
+            .page__body
+                h2.page__title= animal.name
+
+                div(class='cols-auto-fit cols-auto-fit--gap-60')
+                    div
+                        ul.zooprofile__photos
+                            li.zooprofile__photo
+                                img(src='#{animal.photo.url}')
+                        if user.is_authenticated
+                            .h-center
+                                - var className = 'zooprofile__add-to-favorite';
+                                
+                                if is_in_favorites
+                                    className = 'zooprofile__add-to-favorite zooprofile__mark-as-favorite'
+
+                                button(class='#{className}' data-userid=user_account.id data-animalid=animal.id)
+                                    svg(width="58" height="52" viewBox="0 0 58 52" xmlns="http://www.w3.org/2000/svg")
+                                        path(d="M25.5151 49.9424L25.4611 49.906L25.4028 49.877C22.1586 48.2592 16.0128 44.3542 10.693 38.946C5.35629 33.5208 1 26.7367 1 19.35C1 9.23332 9.22812 1 19.3352 1C22.5803 1 25.7155 1.8476 28.498 3.46262L29 3.75397L29.502 3.46262C32.2844 1.84768 35.4252 1 38.6648 1C48.7719 1 57 9.23332 57 19.35C57 26.7368 52.6437 33.5223 47.307 38.9482C41.9871 44.3571 35.8414 48.2619 32.5978 49.8767L32.5392 49.9058L32.4849 49.9424C31.4413 50.6452 30.2788 51 29 51C27.7212 51 26.5587 50.6452 25.5151 49.9424Z" stroke="white" stroke-width="2")
+                                    | Добавить в избранное
+                    .zooprofile__descr-wrapper
+                        .zooprofile__params
+                            h3.page__subtitle Параметры:
+
+                            ul.zooprofile__params-list
+                                li
+                                    .zooprofile__params-name Вид
+                                    .zooprofile__params-value= animal.kind
+                                li
+                                    .zooprofile__params-name Цвет
+                                    .zooprofile__params-value= animal.color
+                                li
+                                    .zooprofile__params-name Возраст
+                                    .zooprofile__params-value= animal.age
+                                li
+                                    .zooprofile__params-name Пол
+                                    .zooprofile__params-value= animal.gender
+                                li
+                                    .zooprofile__params-name Темперамент
+                                    .zooprofile__params-value= animal.temperament
+                                li
+                                    .zooprofile__params-name Высота в холке
+                                    .zooprofile__params-value= animal.heightAtWithers
+                                li
+                                    .zooprofile__params-name Особые качества
+                                    .zooprofile__params-value= animal.specialQualitie
+                                li
+                                    .zooprofile__params-name Шерсть
+                                    .zooprofile__params-value= animal.wool
+                                li
+                                    .zooprofile__params-name Отношение
+                                    .zooprofile__params-value= animal.attitudeTowardsOtherAnimals
+
+                        .zooprofile__description
+                            h3.page__subtitle Описание:
+                            p= animal.description
+
+                        .zooprofile__footer
+                            if user.is_authenticated and user.useraccount.id == animal.owner.id
+                                .cols-auto-fit
+                                    a(class='link_as_btn' href='/animalprofile/edit/#{animal.id}/') Редактировать
+
+                                    if animal.isOwnerFound
+                                        a(class='link_as_btn' href='/animalprofile/check-owner-found/#{animal.id}/') Новые хозяева не найдены
+                                    else
+                                        a(class='link_as_btn' href='/animalprofile/check-owner-found/#{animal.id}/') Новые хозяева найдены
+                            if user.is_authenticated and user.useraccount.id != animal.owner.id
+                                .dropdown.dropdown--top
+                                    span.dropdown__label Контакты для связи
+                                    .dropdown__content
+                                        ul
+                                            if animal.owner.user.useraccount.contact.email
+                                                li
+                                                    <span>email:</span>
+                                                    a(class='link' href='mailto: {{ animal.owner.user.useraccount.contact.email }}') {{ animal.owner.user.useraccount.contact.email }}
+                                            if animal.owner.user.useraccount.contact.tel
+                                                li
+                                                    <span>Телефон:</span>
+                                                    a(class='link' href='tel: {{ animal.owner.user.useraccount.contact.tel }}') {{ animal.owner.user.useraccount.contact.tel }}
+                                            if animal.owner.user.useraccount.contact.vk
+                                                li
+                                                    <span>ВКонтакте:</span>
+                                                    a(class='link' href='{{ animal.owner.user.useraccount.contact.vk }}') {{ animal.owner.user.useraccount.contact.vk }}
+                                            if animal.owner.user.useraccount.contact.tg
+                                                li
+                                                    <span>Телеграм:</span>
+                                                    a(class='link' href='https://tele.click/{{ animal.owner.user.useraccount.contact.tg }}') {{ animal.owner.user.useraccount.contact.tg }}
+                            if user.is_authenticated == false
+                                p Чтобы увидеть контакты хозяева <a class='link' href='/userprofile/register-user/'>зарегестрируйтесть</a> или  <a class='link' href='/userprofile/login/'>войдите в акканут</a>

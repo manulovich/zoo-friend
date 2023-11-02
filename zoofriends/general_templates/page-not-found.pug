@@ -1,0 +1,12 @@
+extends base.pug
+
+{% load static %}
+
+block main
+    section(class='page page--h-center pagenotfound')
+        .container
+            .page__body
+                    h2.page__title Запрашиваемая страница не найдена
+
+                    .pagenotfound__image
+                        img(src='{% static "general_static/images/sad-dog.svg" %}'))

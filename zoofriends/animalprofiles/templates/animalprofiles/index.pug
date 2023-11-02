@@ -1,0 +1,36 @@
+extends base.pug
+include mx_card.pug
+
+block main
+	section(class='page zoofriends')
+		.container
+			.page__body
+				h2.page__title ЗооДрузья
+
+				form(method='POST')
+					{% csrf_token %}
+
+					.cols-auto-fit
+						{% for f in form %}
+						{% if f.label == 'Возраст до (месяцев)' %}
+						.number-field
+							label(for='{{ f.id_for_label }}') {{f.label}}:
+							{{ f }}
+						{% else %}
+						.select-field
+							label(for='{{ f.id_for_label }}') {{f.label}}:
+							{{ f }}
+						{% endif %}
+						{% endfor %} 
+
+					button.btn.zoofriends__update-results Обновить результаты
+
+				span.zoofriends__del
+
+				spsn.zoofriends__count-search-result Найден #{count_animals} результат:
+
+				.zoofriends__search-results
+					div(class='cols-auto-fit cols-auto-fit--row-gap-40')
+						each animal in animals
+							li
+								+cardZoo(animal.photo.url, animal.name, user.is_authenticated, user_account.id, animal.id, animal.isOwnerFound, animal.isFavorite)

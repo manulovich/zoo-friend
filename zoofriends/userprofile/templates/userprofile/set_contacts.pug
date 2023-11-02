@@ -1,0 +1,29 @@
+extends base.pug
+
+block main
+    section(class='page')
+        .container
+            .page__body
+                h2.page__title Укажите хотябы один контакт для связи
+
+                form(class='form' method='post' enctype='multipart/form-data')
+                    {% csrf_token %}
+                    .form__error {{ form.non_field_errors }}
+                    {% for f in form %}
+                    {% if f.label == 'Tel' %}
+                    .form__row
+                        .text-field
+                            label(for='{{ f.id_for_label }}') Телефон:
+                            {{ f }}
+                            span.error {{ f.errors }}
+                    {% else %}
+                    .form__row
+                        .text-field
+                            label(for='{{ f.id_for_label }}') {{f.label}}:
+                            {{ f }}
+                            span.error {{ f.errors }}
+                    {% endif %}
+                    {% endfor %}
+
+                    .form__footer
+                        button(class='btn' type='submit') Зарегистрироваться

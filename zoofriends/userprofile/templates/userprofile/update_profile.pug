@@ -1,0 +1,29 @@
+extends base.pug
+
+block main
+    section(class='page')
+        .container
+            .page__body
+                h2.page__title Редактирование профиля
+
+                form(class='form' method='post' enctype='multipart/form-data')
+                    {% csrf_token %}
+                    .form__error {{ form.non_field_errors }}
+                    div(class='cols-auto-fit')
+                        div
+                            .form__row
+                                .checkbox-field
+                                    label(for='{{ form.is_owner_shelter.id_for_label }}') {{ form.is_owner_shelter.label }}
+                                    {{ form.is_owner_shelter }}
+                        div
+                            .form__row
+                                .form__image-preview
+                                    img(id='user-image-preview' src='{{ user.useraccount.photo.url }}')
+                            .form__row
+                                div(class='form__select-photo select-photo' data-for='user-image-preview')
+                                    label(for='{{form.photo.id_for_label}}')
+                                        input(name='photo' type='file' accept='image/*')
+                                        button(class='btn' type='button') Фото
+                                        span.select-photo__url {{ user.useraccount.photo.url }}
+                    .form__footer
+                        button(class='btn' type='submit') Сохранить

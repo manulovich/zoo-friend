@@ -1,0 +1,85 @@
+extends base.pug
+
+{% load static %}
+
+block main
+    section.greeting-screen
+        .container
+            .greeting-screen__body
+                div(class='cols-auto-fit cols-auto-fit--aie')
+                    li
+                        h1.greeting-screen__title Информа<wbr>ционная база для поиска животных
+                    li
+                        .greeting-screen__image
+                            img(src='{% static "general_static/icons/dog.svg" %}'))
+
+
+    section.idea
+        .container
+            .idea__body
+                h2.idea__subtitle Идея
+
+                div(class='cols-auto-fit cols-auto-fit--aic')
+                    li
+                        p 
+                            | Целью проекта является создание базы по подбору
+                            | семей для животных (из приютов города Кирова) и их
+                            | консультация в области зоопсихологии и ветеринарии
+                            | с дальнейшим  ненавязчививым отслеживанием жизни
+                            | пристроенных животных.
+                    li
+                        .idea__video
+                            <iframe src="https://vk.com/video_ext.php?oid=134054390&id=456240002&hd=2&hash=20998ce99183983b" id='vk-video' allow="autoplay; encrypted-media; fullscreen; picture-in-picture;" frameborder="0" allowfullscreen></iframe>
+
+    section.partners
+        .container
+            .partners__body
+                h2.partners__subtitle Партнеры
+
+                div(class='cols-auto-fit')
+                    li
+                        div(class='card-partners')
+                            .card-partners__image
+                                img(src='{% static "general_static/images/vgatu.png" %}'))
+                            h3.card-partners__title Вятский ГАТУ
+                            span.card-partners__del
+                            p.card-partners__type-help Экономическая и гуманитарная поддержка
+                    li
+                        div(class='card-partners')
+                            .card-partners__image
+                                img(src='{% static "general_static/images/wetNose.png" %}'))
+                            h3.card-partners__title Приют "Мокрый нос"
+                            span.card-partners__del
+                            p.card-partners__type-help Информация о животных, нуждающихся в семье
+                    li
+                        div(class='card-partners')
+                            .card-partners__image
+                                img(src='{% static "general_static/images/goodHope.png" %}'))
+                            h3.card-partners__title Приют "Мыс доброй надежды"
+                            span.card-partners__del
+                            p.card-partners__type-help Информация о животных, нуждающихся в семье
+
+    section.team    
+        .container 
+            .team__body
+                h2.team__subtitle Команда
+
+                div(class='cols-auto-fit')
+                    li
+                        div(class='card-profile')
+                            .card-profile__image
+                                img(src='{% static "general_static/images/snezhanna.png" %}'))
+                            h3.card-profile__title Снежана Шкаредная
+                            p.card-profile__role Креативные и гениальные идеи, маркетинг
+                    li
+                        div(class='card-profile')
+                            .card-profile__image
+                                img(src='{% static "general_static/images/irina.png" %}'))
+                            h3.card-profile__title Ирина Караваева
+                            p.card-profile__role Бумажная работа, заполнение документов и оформление презентаций
+                    li
+                        div(class='card-profile')
+                            .card-profile__image
+                                img(src='{% static "general_static/images/kristina.png" %}'))
+                            h3.card-profile__title Кристина Кайсина
+                            p.card-profile__role Лидер проекта. Формирование идеи и цели проекта, вдохновление и контроль за другими участниками

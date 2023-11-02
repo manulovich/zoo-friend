@@ -1,0 +1,34 @@
+extends base.pug
+include mx_card.pug
+{% load static %}
+
+block main
+	section(class='page myprofile')
+		.container
+			.page__body
+				h2.page__title Профиль
+
+				div(class='profile-data myprofile__profile-data')
+					div(class='info profile-data__info')
+						.info__avatar
+							img(src='#{user_account.photo.url}')
+						div
+							h3.info__name= user.username   
+					.dropdown.dropdown--bottom
+						span.dropdown__label Настройки профиля
+						.dropdown__content
+							ul
+								li
+									a(class='link' href='/userprofile/update-user-login-email/') Редактировать логин и почту
+								li
+									a(class='link' href='/userprofile/update-password/') Редактировать пароль
+								li
+									a(class='link' href='/userprofile/update-profile/') Редактировать параметры профиля
+								li
+									a(class='link' href='/userprofile/logout/') Выйти из аккаунта
+				.myprofile__zoo-profiles
+					h2.page__title Мои анкеты животных
+					div(class='cols-auto-fit')
+						each animal in animals
+							li
+								+cardZoo(animal.photo.url, animal.name, true, user_account.id, animal.id, animal.isOwnerFound, animal.isFavorite)
